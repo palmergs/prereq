@@ -19,6 +19,18 @@ class Activity < ActiveRecord::Base
       class_name: 'Activity', 
       through: :next_links
 
+  belongs_to :parent, class_name: 'Activity', 
+      primary_key: :id, 
+      counter_cache: 'child_count',
+      foreign_key: :parent_id,
+      inverse_of: :children
+
+  has_many :children, class_name: 'Activity', 
+      primary_key: :id, 
+      counter_cache: 'child_count',
+      foreign_key: :parent_id, 
+      inverse_of: :parent
+
   validates :name, presence: true
 
   scope :no_previous_links, -> {
