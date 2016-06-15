@@ -29,6 +29,13 @@ RSpec.describe Activity, type: :model do
   describe 'depth first ordering' do
     it 'can sort dependencies' do
 
+
+      #   a1
+      #    \
+      # a2 -> a3 -> a4
+      #        \ 
+      # a0 -----> a5
+
       a0 = create(:activity, name: 'left 0')
       a1 = create(:activity, name: 'left 1')
       a2 = create(:activity, name: 'left 2')
@@ -45,8 +52,13 @@ RSpec.describe Activity, type: :model do
       expect(left_edges.count).to eq(3)
 
       ordered = Activity.kahn_algorithm(left_edges)
-      pp ordered
+      expect(ordered.index(a1)).to be < ordered.index(a3)
+      expect(ordered.index(a2)).to be < ordered.index(a3)
 
+      expect(ordered.index(a0)).to be < ordered.index(a5)
+
+      expect(ordered.index(a3)).to be < ordered.index(a4)
+      expect(ordered.index(a3)).to be < ordered.index(a5)
 
     end
   end
