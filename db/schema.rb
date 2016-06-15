@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160614182112) do
+ActiveRecord::Schema.define(version: 20160615140124) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "name",                              null: false
@@ -21,8 +21,10 @@ ActiveRecord::Schema.define(version: 20160614182112) do
     t.datetime "updated_at",                        null: false
     t.integer  "previous_links_count", default: 0,  null: false
     t.integer  "next_links_count",     default: 0,  null: false
+    t.integer  "child_count",          default: 0,  null: false
   end
 
+  add_index "activities", ["child_count"], name: "index_activities_on_child_count"
   add_index "activities", ["next_links_count"], name: "index_activities_on_next_links_count"
   add_index "activities", ["parent_id"], name: "index_activities_on_parent_id"
   add_index "activities", ["previous_links_count"], name: "index_activities_on_previous_links_count"
