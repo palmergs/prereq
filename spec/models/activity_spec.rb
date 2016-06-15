@@ -26,6 +26,18 @@ RSpec.describe Activity, type: :model do
 
   end
 
+  describe 'parents and children' do
+    it 'can have parents and children' do
+      a1 = create(:activity)
+      a2 = create(:activity, parent: a1)
+
+      a1.reload and a2.reload
+      expect(a1.children.count).to eq(1)
+      expect(a1.children).to include(a2)
+      expect(a2.parent).to eq(a1)
+    end
+  end
+
   describe 'depth first ordering' do
     it 'can sort dependencies' do
 
