@@ -44,7 +44,7 @@ class Activity < ActiveRecord::Base
   }
 
   before_destroy do
-    Activity.where(parent_id: self.id).update_all(parent_id: null)
+    Activity.where(parent_id: self.id).update_all(parent_id: nil)
   end
 
   def all_next_activities

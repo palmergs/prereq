@@ -36,6 +36,18 @@ RSpec.describe Activity, type: :model do
       expect(a1.children).to include(a2)
       expect(a2.parent).to eq(a1)
     end
+
+    it 'sets parent to nil if parent deleted' do
+      a1 = create(:activity)
+      a2 = create(:activity, parent: a1)
+
+      a1.reload and a2.reload
+      expect(a2.parent).to eq(a1)
+      a1.destroy
+
+      a2.reload
+      expect(a2.parent).to be_nil
+    end
   end
 
   describe 'depth first ordering' do
