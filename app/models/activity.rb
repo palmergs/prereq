@@ -3,7 +3,8 @@ class Activity < ActiveRecord::Base
       class_name: 'Link', 
       counter_cache: 'previous_links_count',
       primary_key: :id,
-      foreign_key: :next_activity_id
+      foreign_key: :next_activity_id,
+      dependent: :destroy
 
   has_many :previous_activities, 
       class_name: 'Activity', 
@@ -13,7 +14,8 @@ class Activity < ActiveRecord::Base
       class_name: 'Link', 
       counter_cache: 'next_links_count',
       primary_key: :id,
-      foreign_key: :previous_activity_id
+      foreign_key: :previous_activity_id,
+      dependent: :destroy
 
   has_many :next_activities, 
       class_name: 'Activity', 
@@ -40,6 +42,10 @@ class Activity < ActiveRecord::Base
   scope :no_next_links, -> {
     where(next_links_count: 0)
   }
+
+  before_destroy do
+    Activity.where(parent_id: self.id).update_all(parent_id: null)
+  end
 
   def all_next_activities
     next_activities.inject(Set.new) do |set, a| 
