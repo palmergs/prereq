@@ -1,7 +1,13 @@
 class Api::V1::ActivitiesController < ApplicationController
   def index
-    @activities = Activity.all
-    render json: @activities
+    @activities = Activity.page(params[:p])
+    render json: @activities, meta: {
+      pagination: {
+        total_pages: @activities.total_pages,
+        total_count: @activities.total_count,
+        current_page: @activities.current_page,
+      }
+    }
   end
 
   def show
@@ -36,10 +42,10 @@ class Api::V1::ActivitiesController < ApplicationController
   private
 
     def create_activity_params
-      params.require(:activity).permit(:name, :description)
+      ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [ :name, :description ])
     end
 
     def update_activity_params
-      params.require(:activity).permit(:name, :description)
+      ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [ :name, :description ])
     end
 end
