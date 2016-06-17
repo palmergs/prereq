@@ -1,6 +1,6 @@
 class Api::V1::ActivitiesController < ApplicationController
   def index
-    @activities = Activities.all
+    @activities = Activity.all
     render json: @activities
   end
 
