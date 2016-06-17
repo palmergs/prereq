@@ -11,7 +11,7 @@ gem 'sdoc',               '~> 0.4.0', group: :doc
 gem 'bcrypt',             '~> 3.1.7'
 
 gem 'rack-cors',          require: 'rack/cors'
-gem 'ember-cli-rails'
+gem 'ember-cli-rails',    '~> 0.7'
 
 group :development, :test do
   gem 'pry-rails'
