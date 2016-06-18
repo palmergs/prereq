@@ -42,10 +42,11 @@ class Api::V1::LinksController < ApplicationController
   private
 
     def create_link_params
-      ActiveModelSerializer::Deserialization.jsonapi_parse(params, only: [ :next_activity_id, :previous_activity_id, :description ])
+      # Adapter::JsonApi::Deserialization.parse!(params, only: [ :description, :next_activity, :previous_activity ])
+      ActiveModelSerializers::Deserialization.jsonapi_parse!(params, only: [ :description, :'next-activity', :'previous-activity' ])
     end
 
     def update_link_params
-      ActiveModelSerializer::Deserialization.jsonapi_parse(params, only: [ :description ])
+      ActiveModelSerializers::Deserialization.jsonapi_parse!(params, only: [ :description ])
     end
 end
