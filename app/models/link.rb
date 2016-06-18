@@ -26,10 +26,18 @@ class Link < ActiveRecord::Base
   end
 
   def previous_activities
-    previous_activity.all_previous_activities + [ previous_activity ]
+    if previous_activity
+      previous_activity.all_previous_activities + [ previous_activity ]
+    else
+      Set.new
+    end
   end
 
   def next_activities
-    next_activity.all_next_activities + [ next_activity ]
+    if next_activity
+      next_activity.all_next_activities + [ next_activity ]
+    else
+      Set.new
+    end
   end
 end
