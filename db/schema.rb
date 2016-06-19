@@ -11,23 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615140124) do
+ActiveRecord::Schema.define(version: 20160618135918) do
 
   create_table "activities", force: :cascade do |t|
-    t.string   "name",                              null: false
-    t.text     "description",          default: "", null: false
+    t.string   "name",                                            null: false
+    t.text     "description",                     default: "",    null: false
     t.integer  "parent_id"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.integer  "previous_links_count", default: 0,  null: false
-    t.integer  "next_links_count",     default: 0,  null: false
-    t.integer  "child_count",          default: 0,  null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.integer  "previous_links_count",            default: 0,     null: false
+    t.integer  "next_links_count",                default: 0,     null: false
+    t.integer  "child_count",                     default: 0,     null: false
+    t.string   "status",               limit: 24, default: "new", null: false
+    t.boolean  "completed",                       default: false, null: false
   end
 
   add_index "activities", ["child_count"], name: "index_activities_on_child_count"
+  add_index "activities", ["completed"], name: "index_activities_on_completed"
   add_index "activities", ["next_links_count"], name: "index_activities_on_next_links_count"
   add_index "activities", ["parent_id"], name: "index_activities_on_parent_id"
   add_index "activities", ["previous_links_count"], name: "index_activities_on_previous_links_count"
+  add_index "activities", ["status"], name: "index_activities_on_status"
 
   create_table "links", force: :cascade do |t|
     t.integer  "previous_activity_id",              null: false

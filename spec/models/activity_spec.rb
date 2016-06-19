@@ -86,4 +86,44 @@ RSpec.describe Activity, type: :model do
 
     end
   end
+
+  describe 'status and completed flag' do
+    it 'can have a status' do
+      a = build(:activity, status: 'testing')
+      expect(a.status).to eq('testing')
+    end
+
+    it 'can have a completed flag' do
+      a = build(:activity, completed: true)
+      expect(a).to be_completed
+    end
+
+    it 'can check for completed status in previous activity' do
+      prev1 = create(:activity, name: 'start not completed')
+      prev2 = create(:activity, completed: true, name: 'start completed')
+      current = create(:activity, name: 'current')
+      create(:link, previous_activity: prev1, next_activity: current)
+      create(:link, previous_activity: prev2, next_activity: current)
+      prev1.reload and prev2.reload and current.reload
+
+      expect(current).to_not be_previous_completed
+      prev1.update_attribute(:completed, true)
+      current.reload
+
+      expect(current).to be_previous_completed
+    end
+
+    it 'can check for completed status in children' do
+      parent = create(:activity)
+      child1 = create(:activity, parent: parent)
+      child2 = create(:activity, completed: true, parent: parent)
+      parent.reload
+
+      expect(parent).to_not be_children_completed
+      child1.update_attribute(:completed, true)
+      parent.reload
+
+      expect(parent).to be_children_completed
+    end
+  end
 end

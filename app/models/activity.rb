@@ -59,6 +59,22 @@ class Activity < ActiveRecord::Base
     end
   end
 
+  def previous_completed?
+    return true if previous_activities.empty?
+
+    previous_activities.all? do |a| 
+      a.completed?
+    end
+  end
+
+  def children_completed?
+    return true if children.empty?
+
+    children.all? do |c| 
+      c.completed?
+    end
+  end
+
   def self.kahn_algorithm left_edges
     list = []
     seen = Set.new
