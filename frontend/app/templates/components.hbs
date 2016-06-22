@@ -82,23 +82,21 @@
       <a href="http://kaliber5.github.io/ember-bootstrap/api/classes/Components.Modal.html">Components.Modal</a>
     </div>
     <div class="col-sm-3">
-      <a {{action 'toggle1'}}>modal</a>
+      <button {{action 'open1'}} class="btn btn-default">One</button>
       {{#if one}}
-        {{#bs-modal title="Simple Dialog: One"}}
+        {{#bs-modal title="Simple Dialog: One" closedAction="reset"}}
           Hello world!
         {{/bs-modal}}
       {{/if}}
     </div>
     <div class="col-sm-3">
-      <a {{action 'toggle2'}}>modal</a>
-      {{#if two}}
-        {{#bs-modal open=two title="Simple Dialog: Two"}}
-          Hello world!
-        {{/bs-modal}}
-      {{/if}}
+      <button {{action 'open2'}} class="btn btn-default">Two</button>
+      {{#bs-modal open=two title="Simple Dialog: Two"}}
+        Hello world!
+      {{/bs-modal}}
     </div>
     <div class="col-sm-3">
-      <a {{action 'toggle3'}}>modal</a>
+      <button {{action 'open3'}} class="btn btn-default">Three</button>
       {{#if three}}
         {{#bs-modal body=false footer=false title="Attention: Three" submitAction=(action "submit")}}
           {{#bs-modal-body}}Are you sure?{{/bs-modal-body}}
@@ -107,7 +105,7 @@
       {{/if}}
     </div>
     <div class="col-sm-3">
-      <a {{action 'toggle4'}}>modal</a>
+      <button {{action 'open4'}} class="btn btn-default">Four</button>
       {{#if four}}
         {{#bs-modal body=false footer=false header=false title="Four" submitAction=(action "submit")}}
           {{#bs-modal-header}}
@@ -122,7 +120,7 @@
       {{/if}}
     </div>
     <div class="col-sm-3">
-      <a {{action 'toggle5'}}>modal</a>
+      <button {{action 'open5'}} class="btn btn-default">Five</button>
       {{#if five}}
         {{#bs-modal title="Form Example: Five" body=false footer=false}}
           {{#bs-modal-body}}
@@ -136,7 +134,7 @@
       {{/if}}
     </div>
     <div class="col-sm-3">
-      <a {{action 'toggle6'}}>modal</a>
+      <button {{action 'open6'}} class="btn btn-default">Six</button>
       {{#if six}}
         {{#bs-modal title="Form Example: Six" body=false footer=false}}
           {{#bs-modal-body}}
