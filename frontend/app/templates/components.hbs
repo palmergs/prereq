@@ -148,4 +148,22 @@
       {{/if}}
     </div>
   </div>
+  <hr/>
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="http://kaliber5.github.io/ember-bootstrap/api/classes/Components.ProgressBar.html">Components.ProgressBar</a>
+    </div>
+    <div class="col-sm-6">
+      {{#bs-progress}}
+        {{bs-progress-bar value=progressValue minValue=0 maxValue=10 showLabel=true type="danger"}}
+      {{/bs-progress}}
+    </div>
+    <div class="col-sm-6">
+      {{#bs-progress}}
+        {{bs-progress-bar value=progressValue1 type="success"}}
+        {{bs-progress-bar value=progressValue2 type="warning"}}
+        {{bs-progress-bar value=progressValue3 type="danger"}}
+      {{/bs-progress}}
+    </div>
+  </div>
 </div>

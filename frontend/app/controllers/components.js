@@ -8,6 +8,11 @@ export default Ember.Controller.extend({
   five: false,
   six: false,
 
+  progressValue: 1,
+  progressValue1: 2,
+  progressValue2: 2,
+  progressValue3: 2,
+
   setAllFalse() {
     this.set('one', false);
     this.set('two', false);
