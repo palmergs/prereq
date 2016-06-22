@@ -1,0 +1,151 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="http://kaliber5.github.io/ember-bootstrap/api/classes/Components.Dropdown.html">Components.Dropdown</a>
+    </div>
+    <div class="col-sm-6">
+      {{#bs-dropdown}}
+        {{#bs-dropdown-button}}Dropdown <span class="caret"></span>{{/bs-dropdown-button}}
+        {{#bs-dropdown-menu}}
+          <li>{{#link-to "index"}}Something{{/link-to}}</li>
+          <li>{{#link-to "index"}}Something different{{/link-to}}</li>
+        {{/bs-dropdown-menu}}
+      {{/bs-dropdown}}
+    </div>
+    <div class="col-sm-6">
+      {{#bs-dropdown}}
+        {{#bs-button}}Dropdown{{/bs-button}}
+        {{#bs-dropdown-button}}Dropdown <span class="caret"></span>{{/bs-dropdown-button}}
+        {{#bs-dropdown-menu}}
+          <li>{{#link-to "index"}}Something{{/link-to}}</li>
+          <li>{{#link-to "index"}}Something different{{/link-to}}</li>
+        {{/bs-dropdown-menu}}
+      {{/bs-dropdown}}
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="http://kaliber5.github.io/ember-bootstrap/api/classes/Components.Accordion.html">Components.Accordian</a>
+    </div>
+    <div class="col-sm-12">
+      {{#bs-accordion selected=selected}}
+        {{#bs-accordion-item value="1" title="First item"}}
+          <p>Lorem ipsum...</p>
+        {{/bs-accordion-item}}
+        {{#bs-accordion-item value="2" title="Second item"}}
+          <p>Lorem ipsum...</p>
+        {{/bs-accordion-item}}
+        {{#bs-accordion-item value="3" title="Third item"}}
+          <p>Lorem ipsum...</p>
+        {{/bs-accordion-item}}
+      {{/bs-accordion}}
+      <p>Selected accordion item: {{selected}}</p>
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="">Components.Form</a>
+    </div>
+    <div class="col-sm-6">
+      {{#bs-form action="submit"}}
+        {{#bs-form-group validation=firstNameValidation}}
+          <label class="control-label">First name</label>
+          {{bs-input type="text" value=firstname}}
+       {{/bs-form-group}}
+      {{/bs-form}}
+    </div>
+    <div class="col-sm-6">
+      {{#bs-form formLayout="horizontal" model=this action="submit"}}
+        {{bs-form-element controlType="email" label="Email" placeholder="Email" property="email"}}
+        {{bs-form-element controlType="password" label="Password" placeholder="Password" property="password"}}
+        {{bs-form-element controlType="checkbox" label="Remember me" property="rememberMe"}}
+        {{bs-button defaultText="Submit" type="primary" buttonType="submit"}}
+      {{/bs-form}}
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="http://kaliber5.github.io/ember-bootstrap/api/classes/Components.Alert.html">Components.Alert</a>
+    </div>
+    <div class="col-sm-12">
+      {{#bs-alert type="success"}}
+        <strong>Well done!</strong> You successfully read this important alert message.
+      {{/bs-alert}}
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="http://kaliber5.github.io/ember-bootstrap/api/classes/Components.Modal.html">Components.Modal</a>
+    </div>
+    <div class="col-sm-3">
+      <a {{action 'toggle1'}}>modal</a>
+      {{#if one}}
+        {{#bs-modal title="Simple Dialog"}}
+          Hello world!
+        {{/bs-modal}}
+      {{/if}}
+    </div>
+    <div class="col-sm-3">
+      <a {{action 'toggle2'}}>modal</a>
+      {{#bs-modal open=two title="Simple Dialog"}}
+        Hello world!
+      {{/bs-modal}}
+    </div>
+    <div class="col-sm-3">
+      <a {{action 'toggle3'}}>modal</a>
+      {{#if three}}
+        {{#bs-modal body=false footer=false title="Attention" submitAction=(action "submit")}}
+          {{#bs-modal-body}}Are you sure?{{/bs-modal-body}}
+          {{bs-modal-footer closeTitle="Cancel" submitTitle="Ok"}}
+        {{/bs-modal}}
+      {{/if}}
+    </div>
+    <div class="col-sm-3">
+      <a {{action 'toggle4'}}>modal</a>
+      {{#if four}}
+        {{#bs-modal body=false footer=false header=false submitAction=(action "submit")}}
+          {{#bs-modal-header}}
+            <h4 class="modal-title"><i class="glyphicon glyphicon-alert"></i> Alert</h4>
+          {{/bs-modal-header}}
+          {{#bs-modal-body}}Are you absolutely sure you want to do that???{{/bs-modal-body}}
+          {{#bs-modal-footer as |footer|}}
+            {{#bs-button action=(action "close" target=footer) type="danger"}}Oh no, forget it!{{/bs-button}}
+            {{#bs-button buttonType="submit" type="success"}}Yeah!{{/bs-button}}
+          {{/bs-modal-footer}}
+        {{/bs-modal}}
+      {{/if}}
+    </div>
+    <div class="col-sm-3">
+      <a {{action 'toggle5'}}>modal</a>
+      {{#if five}}
+        {{#bs-modal title="Form Example" body=false footer=false}}
+          {{#bs-modal-body}}
+            {{#bs-form action=(action "submit") model=this}}
+              {{bs-form-element controlType="text" label="first name" property="firstname"}}
+              {{bs-form-element controlType="text" label="last name" property="lastname"}}
+            {{/bs-form}}
+          {{/bs-modal-body}}
+          {{bs-modal-footer closeTitle=(t "contact.label.cancel") submitTitle=(t "contact.label.ok")}}
+        {{/bs-modal}}
+      {{/if}}
+    </div>
+    <div class="col-sm-3">
+      <a {{action 'toggle6'}}>modal</a>
+      {{#if six}}
+        {{#bs-modal title="Form Example" body=false footer=false}}
+          {{#bs-modal-body}}
+            {{#bs-form action=(action "submit") model=this}}
+              {{bs-form-element controlType="text" label="first name" property="firstname" autofocus=true}}
+              {{bs-form-element controlType="text" label="last name" property="lastname"}}
+            {{/bs-form}}
+          {{/bs-modal-body}}
+          {{bs-modal-footer closeTitle=(t "contact.label.cancel") submitTitle=(t "contact.label.ok")}}
+        {{/bs-modal}}
+      {{/if}}
+    </div>
+  </div>
+</div>
