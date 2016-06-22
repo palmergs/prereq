@@ -84,21 +84,23 @@
     <div class="col-sm-3">
       <a {{action 'toggle1'}}>modal</a>
       {{#if one}}
-        {{#bs-modal title="Simple Dialog"}}
+        {{#bs-modal title="Simple Dialog: One"}}
           Hello world!
         {{/bs-modal}}
       {{/if}}
     </div>
     <div class="col-sm-3">
       <a {{action 'toggle2'}}>modal</a>
-      {{#bs-modal open=two title="Simple Dialog"}}
-        Hello world!
-      {{/bs-modal}}
+      {{#if two}}
+        {{#bs-modal open=two title="Simple Dialog: Two"}}
+          Hello world!
+        {{/bs-modal}}
+      {{/if}}
     </div>
     <div class="col-sm-3">
       <a {{action 'toggle3'}}>modal</a>
       {{#if three}}
-        {{#bs-modal body=false footer=false title="Attention" submitAction=(action "submit")}}
+        {{#bs-modal body=false footer=false title="Attention: Three" submitAction=(action "submit")}}
           {{#bs-modal-body}}Are you sure?{{/bs-modal-body}}
           {{bs-modal-footer closeTitle="Cancel" submitTitle="Ok"}}
         {{/bs-modal}}
@@ -107,7 +109,7 @@
     <div class="col-sm-3">
       <a {{action 'toggle4'}}>modal</a>
       {{#if four}}
-        {{#bs-modal body=false footer=false header=false submitAction=(action "submit")}}
+        {{#bs-modal body=false footer=false header=false title="Four" submitAction=(action "submit")}}
           {{#bs-modal-header}}
             <h4 class="modal-title"><i class="glyphicon glyphicon-alert"></i> Alert</h4>
           {{/bs-modal-header}}
@@ -122,7 +124,7 @@
     <div class="col-sm-3">
       <a {{action 'toggle5'}}>modal</a>
       {{#if five}}
-        {{#bs-modal title="Form Example" body=false footer=false}}
+        {{#bs-modal title="Form Example: Five" body=false footer=false}}
           {{#bs-modal-body}}
             {{#bs-form action=(action "submit") model=this}}
               {{bs-form-element controlType="text" label="first name" property="firstname"}}
@@ -136,7 +138,7 @@
     <div class="col-sm-3">
       <a {{action 'toggle6'}}>modal</a>
       {{#if six}}
-        {{#bs-modal title="Form Example" body=false footer=false}}
+        {{#bs-modal title="Form Example: Six" body=false footer=false}}
           {{#bs-modal-body}}
             {{#bs-form action=(action "submit") model=this}}
               {{bs-form-element controlType="text" label="first name" property="firstname" autofocus=true}}
