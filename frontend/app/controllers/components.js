@@ -84,9 +84,9 @@ export default Ember.Controller.extend(EmberValidations, {
         this.get('selectedCities').pushObject(text);
       }
     },
-    handleFocus(select, e) { select.actions.open(); },
+    handleFocus(select) { select.actions.open(); },
     download() { this.set("buttonState", "loading"); },
-    downloadPromise(value, e, callback) {
+    downloadPromise() {
       return new Ember.RSVP.Promise((resolve, reject) => {
         setTimeout(() => {
           const val = Math.random();
