@@ -109,6 +109,7 @@
       {{/if}}
     </div>
     <div class="col-sm-3">
+      <label>Controlled by Property</label>
       <button {{action 'open2'}} class="btn btn-default">Two</button>
       {{#bs-modal open=two title="Simple Dialog: Two"}}
         Hello world!
@@ -124,6 +125,7 @@
       {{/if}}
     </div>
     <div class="col-sm-3">
+      <label>With Confirmation</label>
       <button {{action 'open4'}} class="btn btn-default">Four</button>
       {{#if four}}
         {{#bs-modal body=false footer=false header=false title="Four" submitAction=(action "submit")}}
