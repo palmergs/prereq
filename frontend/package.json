@@ -44,7 +44,7 @@
     "ember-one-way-controls": "0.8.3",
     "ember-power-select": "1.0.0-alpha.4",
     "ember-resolver": "^2.0.3",
-    "ember-time-machine": "0.0.1",
+    "ember-time-machine": "git@github.com:offirgolan/ember-time-machine.git",
     "ember-truth-helpers": "1.2.0",
     "ember-validations": "2.0.0-alpha.4",
     "ember-wormhole": "0.4.0",

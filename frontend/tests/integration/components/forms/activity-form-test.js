@@ -5,20 +5,11 @@ moduleForComponent('forms/activity-form', 'Integration | Component | forms/activ
   integration: true
 });
 
-test('it renders', function(assert) {
+test('it renders warning message without model', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
   this.render(hbs`{{forms/activity-form}}`);
+  assert.equal(this.$().text().trim(), 'No activity model found.');
 
-  assert.equal(this.$().text().trim(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#forms/activity-form}}
-      template block text
-    {{/forms/activity-form}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
 });
