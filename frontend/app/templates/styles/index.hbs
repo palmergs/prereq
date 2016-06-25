@@ -1,0 +1,234 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="http://kaliber5.github.io/ember-bootstrap/api/classes/Components.Button.html">Components.Button</a>
+    </div>
+    <div class="col-sm-4">
+      {{#bs-button type="primary" icon="glyphicon glyphicon-download"}}Downloads{{/bs-button}}
+    </div>
+    <div class="col-sm-4">
+      {{bs-button type="primary" icon="glyphicon glyphicon-download" textState=buttonState defaultText="Download" loadingText="Loading..." action="download"}}
+    </div>
+    <div class="col-sm-4">
+      {{bs-button type=downloadState icon="glyphicon glyphicon-download" defaultText="Download" pendingText="Loading..." resolvedText="Completed!" rejectedText="Oups!?" action=(action "downloadPromise")}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="http://kaliber5.github.io/ember-bootstrap/api/classes/Components.Dropdown.html">Components.Dropdown</a>
+    </div>
+    <div class="col-sm-6">
+      {{#bs-dropdown}}
+        {{#bs-dropdown-button}}Dropdown <span class="caret"></span>{{/bs-dropdown-button}}
+        {{#bs-dropdown-menu}}
+          <li>{{#link-to "index"}}Something{{/link-to}}</li>
+          <li>{{#link-to "index"}}Something different{{/link-to}}</li>
+        {{/bs-dropdown-menu}}
+      {{/bs-dropdown}}
+    </div>
+    <div class="col-sm-6">
+      {{#bs-dropdown}}
+        {{#bs-button}}Dropdown{{/bs-button}}
+        {{#bs-dropdown-button}}Dropdown <span class="caret"></span>{{/bs-dropdown-button}}
+        {{#bs-dropdown-menu}}
+          <li>{{#link-to "index"}}Something{{/link-to}}</li>
+          <li>{{#link-to "index"}}Something different{{/link-to}}</li>
+        {{/bs-dropdown-menu}}
+      {{/bs-dropdown}}
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="http://kaliber5.github.io/ember-bootstrap/api/classes/Components.Accordion.html">Components.Accordian</a>
+    </div>
+    <div class="col-sm-12">
+      {{#bs-accordion selected=selected}}
+        {{#bs-accordion-item value="1" title="First item"}}
+          <p>Lorem ipsum...</p>
+        {{/bs-accordion-item}}
+        {{#bs-accordion-item value="2" title="Second item"}}
+          <p>Lorem ipsum...</p>
+        {{/bs-accordion-item}}
+        {{#bs-accordion-item value="3" title="Third item"}}
+          <p>Lorem ipsum...</p>
+        {{/bs-accordion-item}}
+      {{/bs-accordion}}
+      <p>Selected accordion item: {{selected}}</p>
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="">Components.Form</a>
+    </div>
+    <div class="col-sm-6">
+      {{#bs-form action="submit"}}
+        {{#bs-form-group validation=firstNameValidation}}
+          <label class="control-label">First name</label>
+          {{bs-input type="text" value=(mut firstName) }}
+        {{/bs-form-group}}
+        {{#bs-form-group}}
+          <label class="control-label">Description</label>
+          {{bs-textarea value=description rows=4}}
+        {{/bs-form-group}}
+      {{/bs-form}}
+    </div>
+    <div class="col-sm-6">
+      {{#bs-form formLayout="horizontal" model=this action="submit"}}
+        {{bs-form-element controlType="text" label="Name" placeholder="Name" property="firstName"}}
+        {{bs-form-element controlType="email" label="Email" placeholder="Email" property="email"}}
+        {{bs-form-element controlType="password" label="Password" placeholder="Password" property="password"}}
+        {{bs-form-element controlType="checkbox" label="Remember me" property="rememberMe"}}
+        {{bs-button defaultText="Submit" type="primary" buttonType="submit"}}
+      {{/bs-form}}
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="http://kaliber5.github.io/ember-bootstrap/api/classes/Components.Alert.html">Components.Alert</a>
+    </div>
+    <div class="col-sm-12">
+      {{#bs-alert type="success"}}
+        <strong>Well done!</strong> You successfully read this important alert message.
+      {{/bs-alert}}
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="http://kaliber5.github.io/ember-bootstrap/api/classes/Components.Modal.html">Components.Modal</a>
+    </div>
+    <div class="col-sm-3">
+      <button {{action 'open1'}} class="btn btn-default">One</button>
+      {{#if one}}
+        {{#bs-modal title="Simple Dialog: One" closedAction="reset"}}
+          Hello world!
+        {{/bs-modal}}
+      {{/if}}
+    </div>
+    <div class="col-sm-3">
+      <label>Controlled by Property</label>
+      <button {{action 'open2'}} class="btn btn-default">Two</button>
+      {{#bs-modal open=two title="Simple Dialog: Two"}}
+        Hello world!
+      {{/bs-modal}}
+    </div>
+    <div class="col-sm-3">
+      <button {{action 'open3'}} class="btn btn-default">Three</button>
+      {{#if three}}
+        {{#bs-modal body=false footer=false title="Attention: Three" submitAction=(action "submit")}}
+          {{#bs-modal-body}}Are you sure?{{/bs-modal-body}}
+          {{bs-modal-footer closeTitle="Cancel" submitTitle="Ok"}}
+        {{/bs-modal}}
+      {{/if}}
+    </div>
+    <div class="col-sm-3">
+      <label>With Confirmation</label>
+      <button {{action 'open4'}} class="btn btn-default">Four</button>
+      {{#if four}}
+        {{#bs-modal body=false footer=false header=false title="Four" submitAction=(action "submit")}}
+          {{#bs-modal-header}}
+            <h4 class="modal-title"><i class="glyphicon glyphicon-alert"></i> Alert</h4>
+          {{/bs-modal-header}}
+          {{#bs-modal-body}}Are you absolutely sure you want to do that???{{/bs-modal-body}}
+          {{#bs-modal-footer as |footer|}}
+            {{#bs-button action=(action "close" target=footer) type="danger"}}Oh no, forget it!{{/bs-button}}
+            {{#bs-button buttonType="submit" type="success"}}Yeah!{{/bs-button}}
+          {{/bs-modal-footer}}
+        {{/bs-modal}}
+      {{/if}}
+    </div>
+    <div class="col-sm-3">
+      <label>With Form</label>
+      <button {{action 'open5'}} class="btn btn-default">Five</button>
+      {{#if five}}
+        {{#bs-modal title="Form Example: Five" body=false footer=false}}
+          {{#bs-modal-body}}
+            {{#bs-form action=(action "submit") model=this}}
+              {{bs-form-element controlType="text" label="first name" property="firstname"}}
+              {{bs-form-element controlType="text" label="last name" property="lastname"}}
+            {{/bs-form}}
+          {{/bs-modal-body}}
+          {{bs-modal-footer closeTitle=(t "contact.label.cancel") submitTitle=(t "contact.label.ok")}}
+        {{/bs-modal}}
+      {{/if}}
+    </div>
+    <div class="col-sm-3">
+      <label>With Form</label>
+      <button {{action 'open6'}} class="btn btn-default">Six</button>
+      {{#if six}}
+        {{#bs-modal title="Form Example: Six" body=false footer=false}}
+          {{#bs-modal-body}}
+            {{#bs-form action=(action "submit") model=this}}
+              {{bs-form-element controlType="text" label="first name" property="firstname" autofocus=true}}
+              {{bs-form-element controlType="text" label="last name" property="lastname"}}
+            {{/bs-form}}
+          {{/bs-modal-body}}
+          {{bs-modal-footer closeTitle=(t "contact.label.cancel") submitTitle=(t "contact.label.ok")}}
+        {{/bs-modal}}
+      {{/if}}
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="http://kaliber5.github.io/ember-bootstrap/api/classes/Components.ProgressBar.html">Components.ProgressBar</a>
+    </div>
+    <div class="col-sm-6">
+      {{#bs-progress}}
+        {{bs-progress-bar value=progressValue minValue=0 maxValue=10 showLabel=true type="danger"}}
+      {{/bs-progress}}
+    </div>
+    <div class="col-sm-6">
+      {{#bs-progress}}
+        {{bs-progress-bar value=progressValue1 type="success"}}
+        {{bs-progress-bar value=progressValue2 type="warning"}}
+        {{bs-progress-bar value=progressValue3 type="danger"}}
+      {{/bs-progress}}
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-sm-12">
+      <a href="http://www.ember-power-select.com/docs/how-to-use-it">PowerSelect</a>
+    </div>
+    <div class="col-sm-6">
+      <label>onChange</label>
+      {{#power-select selected=name options=names onchange=(action "foo") as |name|}}
+        {{name}}
+      {{/power-select}}
+    </div>
+    <div class="col-sm-6">
+      <label>onKeyDown</label>
+      {{#power-select-multiple
+          selected=selectedCities
+          options=cities
+          onchange=(action (mut selectedCities))
+          onkeydown=(action "handleKeydown") as |name|}}
+        {{name}}
+      {{/power-select-multiple}}
+    </div>
+    <div class="col-sm-6">
+      <label>onFocus</label>
+      {{#power-select
+          selected=selected
+          options=cities
+          onchange=(action (mut selected))
+          onfocus=(action "handleFocus") as |name|}}
+        {{name}}
+      {{/power-select}}
+    </div>
+    <div class="col-sm-6">
+      <label>Groups</label>
+      {{#power-select
+          options=groupedNumbers
+          selected=number
+          onchange=(action (mut number)) as |num| }}
+        {{num}}
+      {{/power-select}}
+    </div>
+  </div>
+  <hr/>
+</div>
