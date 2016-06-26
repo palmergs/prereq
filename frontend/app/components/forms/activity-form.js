@@ -14,6 +14,8 @@ export default Ember.Component.extend({
     }
   }),
 
+  errors: null,
+
   noUndo: Ember.computed.not('working.canUndo'),
   noRedo: Ember.computed.not('working.canRedo'),
 
@@ -35,10 +37,10 @@ export default Ember.Component.extend({
       working.commit();
 
       const model = this.get('model');
-      model.save().then(() => {
-
-      }, () => {
-
+      model.save().then((result) => {
+        this.sendAction('saved', result)
+      }, (errs) => {
+        this.set('errors', errs);
       });
     }
   }
