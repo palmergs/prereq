@@ -37,7 +37,7 @@ module Prereq
         origins '*'
         resource '*',
           headers: :any,
-          methods: [:get, :post, :delete, :put, :options, :head],
+          methods: [:get, :post, :delete, :put, :patch, :options, :head],
           max_age: 0
       end
     end

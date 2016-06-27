@@ -1,4 +1,14 @@
 /* jshint node: true */
+var contentSecurityPolicy = {
+  'default-src':  "'none'",
+  'script-src':   "'self'",
+  'font-src':     "'self' res.cloudinary.com",
+  'connect-src':  "'self' localhost:*",
+  // 'connect-src':  "'self' 172.16.42.5:*",
+  // 'img-src':      "'self' res.cloudinary.com data:",
+  'style-src':    "'self' 'unsafe-inline' 'unsafe-eval'",
+  'media-src':    "'self'"
+};
 
 module.exports = function(environment) {
   var ENV = {
@@ -24,7 +34,8 @@ module.exports = function(environment) {
 
   if (environment === 'development') {
     ENV.apiHost = 'http://localhost:3030';
-    
+    ENV.contentSecurityPolicy = contentSecurityPolicy;
+
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
