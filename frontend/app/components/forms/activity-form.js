@@ -3,6 +3,7 @@ import Ember from 'ember';
 // import EmberValidations from 'ember-validations';
 
 export default Ember.Component.extend({
+  flashService: Ember.inject.service('flash-service'),
 
   model: null,
   // working: Ember.computed('model', function() {
@@ -47,10 +48,15 @@ export default Ember.Component.extend({
       model.validate().then(() => {
         model.save().then((result) => {
           this.sendAction('saved', result);
+          this.get('flashService').success(`Activity "${ result.get('name') }" saved.`);
         }, (errs) => {
-          this.set('errors', errs);
+          console.log("in errors...");
+          console.log(errs);
+          this.get('flashService').errorMessages(errs);
         }).catch((validations) => {
+          console.log("in validations...");
           console.log(validations);
+          this.get('flashService').warning("Unable to save activity.")
         });
       });
     }
