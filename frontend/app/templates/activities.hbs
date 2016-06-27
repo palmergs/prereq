@@ -1,8 +1,49 @@
-<div class="row">
-  <div class="col-sm-12">
-    {{#each model as |activity|}}
-      <div>{{activity.name}}</div>
-    {{/each}}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-8">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Activity</th>
+            <th>Description</th>
+            <th>Prerequisites</th>
+            <th>Subsequent</th>
+            <th>Parent</th>
+            <th>Children</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each model as |activity|}}
+            <tr>
+              <td>{{link-to activity.name 'activities.activity' activity.id}}</td>
+              <td>{{activity.description}}</td>
+              <td>
+                {{#each activity.previousActivities as |prev|}}
+                  {{link-to prev.name 'activities.activity' prev.id}}
+                {{/each}}
+              </td>
+              <td>
+                {{#each activity.nextActivities as |nxt|}}
+                  {{link-to nxt.name 'activities.activity' nxt.id}}
+                {{/each}}
+              </td>
+              <td>
+                {{#if activity.parent}}
+                  {{link-to activity.parent.name 'activities.activity' activity.parent.id}}
+                {{/if}}
+              </td>
+              <td>
+                {{#each activity.children as |child|}}
+                  {{link-to child.name 'activities.activity' child.id}}
+                {{/each}}
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-4">
+      {{outlet}}
+    </div>
   </div>
 </div>
-{{outlet}}

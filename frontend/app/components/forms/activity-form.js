@@ -33,6 +33,12 @@ export default Ember.Component.extend({
     //   const working = this.get('working');
     //   working.commit();
     // },
+    cancel() {
+      const model = this.get('model');
+      model.rollbackAttributes();
+      this.sendAction('canceled');
+    },
+
     submit() {
       // const working = this.get('working');
       // working.commit();
