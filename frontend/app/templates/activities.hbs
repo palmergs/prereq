@@ -5,7 +5,6 @@
         <thead>
           <tr>
             <th>Activity</th>
-            <th>Description</th>
             <th>Prerequisites</th>
             <th>Subsequent</th>
             <th>Parent</th>
@@ -16,7 +15,6 @@
           {{#each model as |activity|}}
             <tr>
               <td>{{link-to activity.name 'activities.activity' activity.id}}</td>
-              <td>{{activity.description}}</td>
               <td>
                 {{#each activity.previousActivities as |prev|}}
                   {{link-to prev.name 'activities.activity' prev.id}}
