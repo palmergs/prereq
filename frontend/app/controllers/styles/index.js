@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import EmberValidations from 'ember-validations';
+// import EmberValidations from 'ember-validations';
 
-export default Ember.Controller.extend(EmberValidations, {
+export default Ember.Controller.extend({
   one: false,
   two: false,
   three: false,
@@ -15,15 +15,15 @@ export default Ember.Controller.extend(EmberValidations, {
     console.log(this.get('firstName'));
   }),
 
-  validations: {
-    firstName: {
-      presence: true,
-      length: {
-        minimum: 1,
-        maximum: 64
-      }
-    }
-  },
+  // validations: {
+  //   firstName: {
+  //     presence: true,
+  //     length: {
+  //       minimum: 1,
+  //       maximum: 64
+  //     }
+  //   }
+  // },
 
   progressValue: 1,
   progressValue1: 2,

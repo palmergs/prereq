@@ -9,6 +9,7 @@ Router.map(function() {
   this.route('styles', function() {
     this.route('forms');
   });
+  this.route('activities');
 });
 
 export default Router;
