@@ -9,7 +9,10 @@ Router.map(function() {
   this.route('styles', function() {
     this.route('forms');
   });
-  this.route('activities');
+  this.route('activities', function() {
+    this.route('new');
+    this.route('activity', { path: ":id" });
+  });
 });
 
 export default Router;
