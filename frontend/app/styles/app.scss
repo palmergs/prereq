@@ -13,3 +13,13 @@
   border-color: #dbdbdb;
   border-color: #ccc;
 }
+
+#flash {
+  position: fixed;
+  top: 4px;
+  left: 0px;
+  z-index: 1060;
+  .alert {
+    min-width: 30rem;
+  }
+}
