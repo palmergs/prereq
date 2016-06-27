@@ -44,7 +44,7 @@ export default Ember.Service.extend({
     });
   },
 
-  errorMessages(errs, message) {
+  errorMessages(errs, message="There was an error.") {
     if(errs && errs.errors && errs.errors.length > 0) {
       for(let i = 0; i < errs.errors.length; ++i) {
         this.warning(errs.errors[i].detail);
@@ -52,8 +52,6 @@ export default Ember.Service.extend({
     } else {
       if(message) {
         this.warning(message);
-      } else {
-        this.warning('There was an error.');
       }
     }
   },

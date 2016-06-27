@@ -6,7 +6,7 @@ export default Ember.Route.extend({
       refreshModel: true
     }
   },
-  model(params) {
-    return this.store.query('activity', params);
+  model(/* params */) {
+    return this.store.findAll('activity');
   }
 });

@@ -3,6 +3,7 @@
     {{bs-form-element controlType="text" label="Name" placeholder="Name" property="name"}}
     {{bs-form-element controlType="textarea" label="Description" placeholder="Description" property="description"}}
     {{bs-button defaultText="Submit" type="primary" buttonType="submit"}}
+    <a {{action "cancel"}}>cancel</a>
   {{/bs-form}}
 {{else}}
   <p class="text-warning">No activity model found.</p>

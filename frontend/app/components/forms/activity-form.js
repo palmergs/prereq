@@ -56,7 +56,7 @@ export default Ember.Component.extend({
         }).catch((validations) => {
           console.log("in validations...");
           console.log(validations);
-          this.get('flashService').warning("Unable to save activity.")
+          this.get('flashService').warning("Unable to save activity.");
         });
       });
     }
