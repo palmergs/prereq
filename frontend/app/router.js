@@ -11,7 +11,9 @@ Router.map(function() {
   });
   this.route('activities', function() {
     this.route('new');
-    this.route('activity', { path: ":id" });
+    this.route('activity', { path: ":id" }, function() {
+      this.route('delete');
+    });
   });
 });
 
