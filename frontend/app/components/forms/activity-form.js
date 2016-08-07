@@ -40,6 +40,10 @@ export default Ember.Component.extend({
       this.sendAction('canceled');
     },
 
+    deleteRequested() {
+      this.sendAction('delete');
+    },
+
     submit() {
       // const working = this.get('working');
       // working.commit();

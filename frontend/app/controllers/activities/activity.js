@@ -8,6 +8,10 @@ export default Ember.Controller.extend({
 
     canceledActivity() {
       this.transitionToRoute('activities.index');
+    },
+
+    confirmDelete() {
+      this.transitionToRoute('activities.activity.delete', this.get('model.id'));
     }
   }
 });

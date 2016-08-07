@@ -4,6 +4,7 @@
     {{bs-form-element controlType="textarea" label="Description" placeholder="Description" property="description"}}
     {{bs-button defaultText="Submit" type="primary" buttonType="submit"}}
     <a {{action "cancel"}}>cancel</a>
+    {{bs-button type="danger" icon="glyphicon glyphicon-trash" classNames="pull-right" action=(action 'deleteRequested') }}
   {{/bs-form}}
 {{else}}
   <p class="text-warning">No activity model found.</p>
