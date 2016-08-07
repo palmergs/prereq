@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160618135918) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "activities", force: :cascade do |t|
     t.string   "name",                                            null: false
     t.text     "description",                     default: "",    null: false
@@ -26,12 +29,12 @@ ActiveRecord::Schema.define(version: 20160618135918) do
     t.boolean  "completed",                       default: false, null: false
   end
 
-  add_index "activities", ["child_count"], name: "index_activities_on_child_count"
-  add_index "activities", ["completed"], name: "index_activities_on_completed"
-  add_index "activities", ["next_links_count"], name: "index_activities_on_next_links_count"
-  add_index "activities", ["parent_id"], name: "index_activities_on_parent_id"
-  add_index "activities", ["previous_links_count"], name: "index_activities_on_previous_links_count"
-  add_index "activities", ["status"], name: "index_activities_on_status"
+  add_index "activities", ["child_count"], name: "index_activities_on_child_count", using: :btree
+  add_index "activities", ["completed"], name: "index_activities_on_completed", using: :btree
+  add_index "activities", ["next_links_count"], name: "index_activities_on_next_links_count", using: :btree
+  add_index "activities", ["parent_id"], name: "index_activities_on_parent_id", using: :btree
+  add_index "activities", ["previous_links_count"], name: "index_activities_on_previous_links_count", using: :btree
+  add_index "activities", ["status"], name: "index_activities_on_status", using: :btree
 
   create_table "links", force: :cascade do |t|
     t.integer  "previous_activity_id",              null: false
@@ -41,7 +44,7 @@ ActiveRecord::Schema.define(version: 20160618135918) do
     t.datetime "updated_at",                        null: false
   end
 
-  add_index "links", ["next_activity_id"], name: "index_links_on_next_activity_id"
-  add_index "links", ["previous_activity_id"], name: "index_links_on_previous_activity_id"
+  add_index "links", ["next_activity_id"], name: "index_links_on_next_activity_id", using: :btree
+  add_index "links", ["previous_activity_id"], name: "index_links_on_previous_activity_id", using: :btree
 
 end

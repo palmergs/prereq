@@ -23,6 +23,12 @@ module.exports = function(environment) {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
+      },
+      EXTEND_PROTOTYPES: {
+        Function: true,
+        String: true,
+        Array: true,
+        Date: false
       }
     },
 
@@ -33,7 +39,7 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV.apiHost = 'http://localhost:3030';
+    ENV.apiHost = 'http://localhost:3070';
     ENV.contentSecurityPolicy = contentSecurityPolicy;
 
     // ENV.APP.LOG_RESOLVER = true;
