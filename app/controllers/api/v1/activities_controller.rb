@@ -36,7 +36,7 @@ class Api::V1::ActivitiesController < ApplicationController
   def destroy
     @activity = Activity.find(params[:id])
     @activity.destroy
-    render json: {}
+    head :no_content
   end
 
   private
