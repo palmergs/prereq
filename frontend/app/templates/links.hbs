@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-8">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>{{link-to "New" 'links.new' classNames="btn btn-primary"}}</th>
+            <th>Previous</th>
+            <th>Next</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each model as |link|}}
+            <tr>
+              <td>{{link-to link.description 'links.link' link.id}}</td>
+              <td>{{link-to link.previousActivity.name 'activities.activity' link.previousActivity.id}}</td>
+              <td>{{link-to link.nextActivity.name 'activities.activity' link.nextActivity.id}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-4">
+      {{outlet}}
+    </div>
+  </div>
+</div>
+

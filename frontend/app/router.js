@@ -15,6 +15,13 @@ Router.map(function() {
       this.route('delete');
     });
   });
+
+  this.route('links', function() {
+    this.route('new');
+    this.route('link', { path: ":id" }, function() {
+      this.route('delete');
+    });
+  });
 });
 
 export default Router;
