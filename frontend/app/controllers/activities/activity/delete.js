@@ -5,13 +5,12 @@ export default Ember.Controller.extend({
 
   actions: {
 
-    cancelDelete() {
-      this.transitionToRoute('activities.activity', this.get('model.id'));
+    cancel(activity) {
+      this.transitionToRoute('activities.activity', activity);
     },
 
-    deleteActivity() {
-      console.log("about to delete...", this.get('model'));
-      this.get('model').destroyRecord().then(() => {
+    delete(activity) {
+      activity.destroyRecord().then(() => {
         this.get('flashService').success('Activity was deleted.');
         this.transitionToRoute('activities.index');
       });

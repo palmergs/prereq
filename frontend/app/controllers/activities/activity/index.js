@@ -2,20 +2,16 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   actions: {
-    confirmDelete() {
-      this.transitionToRoute('activities.activity.delete', this.get('model.id'));
-    },
-    
-    savedActivity(activity) {
+    saved(activity) {
       this.transitionToRoute('activities.activity', activity.get('id'));
     },
 
-    canceledActivity() {
+    canceled() {
       this.transitionToRoute('activities.index');
     },
 
-    delete() {
-      this.transitionToRoute('activities.activity.delete', this.get('model.id'));
+    delete(activity) {
+      this.transitionToRoute('activities.activity.delete', activity.get('id'));
     }
   }
 });

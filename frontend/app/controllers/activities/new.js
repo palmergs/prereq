@@ -2,11 +2,11 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   actions: {
-    savedActivity(activity) {
+    saved(activity) {
       this.transitionToRoute('activities.activity', activity.get('id'));
     },
 
-    canceledActivity() {
+    canceled(activity) {
       this.transitionToRoute('activities.index');
     }
   }

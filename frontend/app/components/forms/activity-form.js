@@ -10,14 +10,13 @@ export default Ember.Component.extend({
   errors: null,
 
   actions: {
-    cancel() {
-      const model = this.get('model');
-      model.rollbackAttributes();
-      this.sendAction('canceled');
+    cancel(activity) {
+      activity.rollbackAttributes();
+      this.sendAction('canceled', activity);
     },
 
-    deleteRequested() {
-      this.sendAction('delete');
+    delete(activity) {
+      this.sendAction('delete', activity);
     },
 
     submit() {

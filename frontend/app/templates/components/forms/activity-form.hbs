@@ -3,9 +3,9 @@
     {{bs-form-element controlType="text" label="Name" placeholder="Name" property="name"}}
     {{bs-form-element controlType="textarea" label="Description" placeholder="Description" property="description"}}
     {{bs-button defaultText="Submit" type="primary" buttonType="submit"}}
-    <a {{action "cancel"}}>cancel</a>
+    <a {{action "cancel" model}}>cancel</a>
     {{#unless model.isNew}}
-      {{bs-button type="danger" icon="glyphicon glyphicon-trash" classNames="pull-right" action=(action 'deleteRequested') }}
+      {{bs-button type="danger" icon="glyphicon glyphicon-trash" classNames="pull-right" action=(action 'delete' model) }}
     {{/unless}}
   {{/bs-form}}
 {{else}}
