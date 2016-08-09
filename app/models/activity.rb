@@ -51,6 +51,12 @@ class Activity < ActiveRecord::Base
     end
   }
 
+  scope :ordered_by_match_length, ->(asc) {
+    if ['asc', 'desc'].include?(asc.to_s.downcase)
+      select('activities.*, char_length(activities.name) as name_length').order("name_length #{ asc.to_s }")
+    end    
+  }
+
   before_destroy do
     Activity.where(parent_id: self.id).update_all(parent_id: nil)
   end

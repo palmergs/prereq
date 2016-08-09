@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  flashService: Ember.inject.service(),
   activitiesStore: Ember.inject.service(),
 
   actions: {
