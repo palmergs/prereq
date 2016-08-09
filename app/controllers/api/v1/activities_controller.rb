@@ -1,6 +1,7 @@
 class Api::V1::ActivitiesController < ApplicationController
   def index
-    @activities = Activity.page(params[:p])
+    @activities = Activity.by_search(params[:q]).
+        page(params[:p])
     render json: @activities, meta: {
       pagination: {
         total_pages: @activities.total_pages,

@@ -1,4 +1,6 @@
 class Activity < ActiveRecord::Base
+  include Concerns::IsScopedByLike
+
   has_many :previous_links,
       class_name: 'Link', 
       counter_cache: 'previous_links_count',
@@ -41,6 +43,12 @@ class Activity < ActiveRecord::Base
 
   scope :no_next_links, -> {
     where(next_links_count: 0)
+  }
+
+  scope :by_search, ->(q) {
+    if q.present?
+      where('activities.name ilike ?', "%#{ sanitize_for_like(q) }%")
+    end
   }
 
   before_destroy do
