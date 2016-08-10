@@ -10,6 +10,12 @@ RSpec.describe Link, type: :model do
     expect(create(:link)).to be_persisted
   end
 
+  it 'a new links activities are empty' do
+    link = Link.new
+    expect(link.previous_activities).to be_empty
+    expect(link.next_activities).to be_empty
+  end
+
   it 'has enables through relationships to activites' do
     link = create(:link)
     pre = link.previous_activity

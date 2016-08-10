@@ -26,6 +26,16 @@ RSpec.describe Activity, type: :model do
 
   end
 
+  it 'can find by like clause' do
+    a1 = create(:activity, name: 'test')
+    expect(Activity.by_search('test')).to include(a1)
+    expect(Activity.by_search('es')).to include(a1)
+
+    expect(Activity.by_search('weasel')).to_not include(a1)
+    expect(Activity.by_search('_')).to_not include(a1)
+    expect(Activity.by_search('%')).to_not include(a1)
+  end
+
   describe 'parents and children' do
     it 'can have parents and children' do
       a1 = create(:activity)
@@ -57,7 +67,7 @@ RSpec.describe Activity, type: :model do
       #   a1
       #    \
       # a2 -> a3 -> a4
-      #        \ 
+      #        \
       # a0 -----> a5
 
       a0 = create(:activity, name: 'left 0')
