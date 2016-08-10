@@ -6,9 +6,8 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('styles', function() {
-    this.route('forms');
-  });
+  this.route('home');
+
   this.route('activities', function() {
     this.route('new');
     this.route('activity', { path: ":id" }, function() {
@@ -21,6 +20,10 @@ Router.map(function() {
     this.route('link', { path: ":id" }, function() {
       this.route('delete');
     });
+  });
+
+  this.route('styles', function() {
+    this.route('forms');
   });
 });
 
