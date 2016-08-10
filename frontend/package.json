@@ -40,6 +40,7 @@
     "ember-data": "^2.7.0",
     "ember-export-application-global": "^1.0.5",
     "ember-i18n": "4.2.2",
+    "ember-leaflet": "2.2.7",
     "ember-load-initializers": "^0.5.1",
     "ember-one-way-controls": "0.8.3",
     "ember-power-select": "1.0.0-beta.8",
