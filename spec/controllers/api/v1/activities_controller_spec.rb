@@ -11,7 +11,13 @@ RSpec.describe Api::V1::ActivitiesController, type: :controller do
   end
 
   describe '#show' do
-
+    it 'renders error json if not found' do
+      expect {
+        get :show, id: 0
+        expect(response).to_not be_success
+        expect(response.body).to include 'Record not found'
+      }.to_not raise_error
+    end
   end
 
   describe '#create' do

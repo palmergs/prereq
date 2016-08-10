@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20160618135918) do
   end
 
   add_index "links", ["next_activity_id"], name: "index_links_on_next_activity_id", using: :btree
+  add_index "links", ["previous_activity_id", "next_activity_id"], name: "index_links_on_previous_activity_id_and_next_activity_id", unique: true, using: :btree
   add_index "links", ["previous_activity_id"], name: "index_links_on_previous_activity_id", using: :btree
 
 end

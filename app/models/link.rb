@@ -1,17 +1,17 @@
 class Link < ActiveRecord::Base
 
-  belongs_to :next_activity, 
-      class_name: 'Activity', 
+  belongs_to :next_activity,
+      class_name: 'Activity',
       counter_cache: 'previous_links_count',
       inverse_of: :previous_links,
-      primary_key: :id, 
+      primary_key: :id,
       foreign_key: :next_activity_id
 
-  belongs_to :previous_activity, 
-      class_name: 'Activity', 
+  belongs_to :previous_activity,
+      class_name: 'Activity',
       counter_cache: 'next_links_count',
       inverse_of: :next_links,
-      primary_key: :id, 
+      primary_key: :id,
       foreign_key: :previous_activity_id
 
   validates :previous_activity, :next_activity, presence: true
