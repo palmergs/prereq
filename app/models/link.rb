@@ -15,8 +15,12 @@ class Link < ActiveRecord::Base
       foreign_key: :previous_activity_id
 
   validates :previous_activity, :next_activity, presence: true
-  validates :next_activity, uniqueness: { scope: :previous_activity } 
+  validates :next_activity, uniqueness: { scope: :previous_activity }
   validate :no_cyclical_dependencies
+
+  before_save do
+    self.description = "" if self.description.nil?
+  end
 
   def no_cyclical_dependencies
     intersection = previous_activities & next_activities

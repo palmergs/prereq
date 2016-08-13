@@ -4,12 +4,21 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   flashService: Ember.inject.service('flash-service'),
+  activitiesStore: Ember.inject.service(),
 
   model: null,
 
   errors: null,
 
   actions: {
+    lookupActivities(query) {
+      return this.get('activitiesStore').search(query);
+    },
+
+    setParentActivity(activity) {
+      this.set('model.parent', activity);
+    },
+
     cancel(activity) {
       activity.rollbackAttributes();
       this.sendAction('canceled', activity);

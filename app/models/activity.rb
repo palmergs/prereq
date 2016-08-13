@@ -1,44 +1,46 @@
 class Activity < ActiveRecord::Base
   include Concerns::IsScopedByLike
 
+  ALL_STATUS = [ 'new', 'working', 'reviewing', 'done', 'canceled', 'on hold' ]
+
   has_many :previous_links,
-      class_name: 'Link', 
+      class_name: 'Link',
       counter_cache: 'previous_links_count',
       primary_key: :id,
       foreign_key: :next_activity_id,
       dependent: :destroy
 
-  has_many :previous_activities, 
-      class_name: 'Activity', 
-      through: :previous_links 
+  has_many :previous_activities,
+      class_name: 'Activity',
+      through: :previous_links
 
-  has_many :next_links, 
-      class_name: 'Link', 
+  has_many :next_links,
+      class_name: 'Link',
       counter_cache: 'next_links_count',
       primary_key: :id,
       foreign_key: :previous_activity_id,
       dependent: :destroy
 
-  has_many :next_activities, 
-      class_name: 'Activity', 
+  has_many :next_activities,
+      class_name: 'Activity',
       through: :next_links
 
-  belongs_to :parent, class_name: 'Activity', 
-      primary_key: :id, 
+  belongs_to :parent, class_name: 'Activity',
+      primary_key: :id,
       counter_cache: 'child_count',
       foreign_key: :parent_id,
       inverse_of: :children
 
-  has_many :children, class_name: 'Activity', 
-      primary_key: :id, 
+  has_many :children, class_name: 'Activity',
+      primary_key: :id,
       counter_cache: 'child_count',
-      foreign_key: :parent_id, 
+      foreign_key: :parent_id,
       inverse_of: :parent
 
   validates :name, presence: true
 
   scope :no_previous_links, -> {
-    where(previous_links_count: 0)    
+    where(previous_links_count: 0)
   }
 
   scope :no_next_links, -> {
@@ -54,21 +56,30 @@ class Activity < ActiveRecord::Base
   scope :ordered_by_match_length, ->(asc) {
     if ['asc', 'desc'].include?(asc.to_s.downcase)
       select('activities.*, char_length(activities.name) as name_length').order("name_length #{ asc.to_s }")
-    end    
+    end
   }
+
+  before_create do
+    self.status = "new"
+  end
+
+  before_save do
+    self.description = "" if description.nil?
+    self.status = "working" unless ALL_STATUS.include?(status)
+  end
 
   before_destroy do
     Activity.where(parent_id: self.id).update_all(parent_id: nil)
   end
 
   def all_next_activities
-    next_activities.inject(Set.new) do |set, a| 
+    next_activities.inject(Set.new) do |set, a|
       set + [ a ] + a.all_next_activities
     end
   end
 
   def all_previous_activities
-    previous_activities.inject(Set.new) do |set, a| 
+    previous_activities.inject(Set.new) do |set, a|
       set + [ a ] + a.all_previous_activities
     end
   end
@@ -76,7 +87,7 @@ class Activity < ActiveRecord::Base
   def previous_completed?
     return true if previous_activities.empty?
 
-    previous_activities.all? do |a| 
+    previous_activities.all? do |a|
       a.completed?
     end
   end
@@ -84,7 +95,7 @@ class Activity < ActiveRecord::Base
   def children_completed?
     return true if children.empty?
 
-    children.all? do |c| 
+    children.all? do |c|
       c.completed?
     end
   end
