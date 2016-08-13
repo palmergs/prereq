@@ -52,6 +52,23 @@ RSpec.describe Api::V1::ActivitiesController, type: :controller do
       post :create, { 'data' => { 'type' => 'activities', 'attributes' => { 'description' => 'Test' }}}
       expect(response).to_not be_success
     end
+
+    it 'can build an activity that is a child to an activity' do
+      parent = create(:activity)
+      expect {
+        hash['data']['relationships'] = {
+          'parent' => {
+            'data' => {
+              'type' => 'activities',
+              'id' => parent.id
+            }
+          }
+        }
+        post :create, hash
+        expect(response).to be_success
+        expect(assigns(:activity).parent).to eq(parent)
+      }.to change { Activity.count }.from(1).to(2)
+    end
   end
 
   describe '#update' do

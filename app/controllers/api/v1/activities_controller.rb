@@ -19,6 +19,7 @@ class Api::V1::ActivitiesController < ApplicationController
 
   def create
     @activity = Activity.new(create_activity_params)
+    @activity.parent = parent(create_activity_params)
     if @activity.save
       render json: @activity
     else
@@ -28,6 +29,7 @@ class Api::V1::ActivitiesController < ApplicationController
 
   def update
     @activity = Activity.find(params[:id])
+    @activity.parent = parent(update_activity_params)
     if @activity.update_attributes(update_activity_params)
       render json: @activity
     else
@@ -43,11 +45,15 @@ class Api::V1::ActivitiesController < ApplicationController
 
   private
 
+    def parent hash
+      Activity.find(hash[:parent_id]) if hash[:parent_id]
+    end
+
     def create_activity_params
-      ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [ :name, :description ])
+      ActiveModelSerializers::Deserialization.jsonapi_parse(params, onlu: [ :name, :description, :parent_id])
     end
 
     def update_activity_params
-      ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [ :name, :description ])
+      ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [ :name, :description, :parent_id ])
     end
 end
