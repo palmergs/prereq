@@ -1,6 +1,7 @@
 class Api::V1::ActivitiesController < ApplicationController
   def index
     @activities = Activity.by_search(params[:q]).
+        exclude_activity(params[:exc]).
         ordered_by_match_length(:asc).
         page(params[:p])
     render json: @activities, meta: {

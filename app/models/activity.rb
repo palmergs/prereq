@@ -1,7 +1,13 @@
 class Activity < ActiveRecord::Base
   include Concerns::IsScopedByLike
 
-  ALL_STATUS = [ 'new', 'working', 'reviewing', 'done', 'canceled', 'on hold' ]
+  NEW_ACTIVITY = 'new'
+  WORKING = 'working'
+  REVIEWING = 'reviewing'
+  COMPLETED = 'complete'
+  CANCELED = 'canceled'
+  ON_HOLD = 'on hold'
+  ALL_STATUS = [ NEW_ACTIVITY, WORKING, REVIEWING, COMPLETED, CANCELED, ON_HOLD ]
 
   has_many :previous_links,
       class_name: 'Link',
@@ -47,6 +53,13 @@ class Activity < ActiveRecord::Base
     where(next_links_count: 0)
   }
 
+  scope :exclude_activity, ->(id) {
+    if id.present?
+      id = Array(id).map(&:to_i)
+      where('activities.id not in (?)', id)
+    end
+  }
+
   scope :by_search, ->(q) {
     if q.present?
       where('activities.name ilike ?', "%#{ sanitize_for_like(q) }%")
@@ -60,12 +73,12 @@ class Activity < ActiveRecord::Base
   }
 
   before_create do
-    self.status = "new"
+    self.status = NEW_ACTIVITY
   end
 
   before_save do
     self.description = "" if description.nil?
-    self.status = "working" unless ALL_STATUS.include?(status)
+    self.status = WORKING unless ALL_STATUS.include?(status)
   end
 
   before_destroy do
@@ -116,4 +129,5 @@ class Activity < ActiveRecord::Base
     end
     list
   end
+
 end

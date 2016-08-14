@@ -36,6 +36,13 @@ RSpec.describe Activity, type: :model do
     expect(Activity.by_search('%')).to_not include(a1)
   end
 
+  it 'can exclude activity from search' do
+    a1 = create(:activity)
+    a2 = create(:activity)
+    expect(Activity.exclude_activity(a1.id)).to include(a2)
+    expect(Activity.exclude_activity(a1.id)).to_not include(a1)
+  end
+
   describe 'parents and children' do
     it 'can have parents and children' do
       a1 = create(:activity)
@@ -126,7 +133,7 @@ RSpec.describe Activity, type: :model do
     it 'can check for completed status in children' do
       parent = create(:activity)
       child1 = create(:activity, parent: parent)
-      child2 = create(:activity, completed: true, parent: parent)
+      create(:activity, completed: true, parent: parent)
       parent.reload
 
       expect(parent).to_not be_children_completed
