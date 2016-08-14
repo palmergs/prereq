@@ -12,7 +12,7 @@ export default Ember.Component.extend({
 
   actions: {
     lookupActivities(query) {
-      return this.get('activitiesStore').search(query);
+      return this.get('activitiesStore').search(query, this.get('model'));
     },
 
     setParentActivity(activity) {

@@ -6,11 +6,13 @@ export default Ember.Component.extend({
 
   actions: {
     lookupPreviousActivities(query) {
-      return this.get('activitiesStore').search(query);
+      return this.get('activitiesStore').search(query,
+          this.get('model.newActivity'));
     },
 
     lookupNextActivities(query) {
-      return this.get('activitiesStore').search(query);
+      return this.get('activitiesStore').search(query,
+          this.get('model.previousActivity'));
     },
 
     setPreviousActivity(activity) {
