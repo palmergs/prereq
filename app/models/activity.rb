@@ -9,6 +9,10 @@ class Activity < ActiveRecord::Base
   ON_HOLD = 'on hold'
   ALL_STATUS = [ NEW_ACTIVITY, WORKING, REVIEWING, COMPLETED, CANCELED, ON_HOLD ]
 
+  PIN_START = -1
+  PIN_UNDEFINED = 0
+  PIN_END = 1
+
   has_many :previous_links,
       class_name: 'Link',
       counter_cache: 'previous_links_count',
@@ -84,6 +88,52 @@ class Activity < ActiveRecord::Base
   before_destroy do
     Activity.where(parent_id: self.id).update_all(parent_id: nil)
   end
+
+  # Event Time methods
+  def days
+    return nil unless duration_secs
+    hours / 24
+  end
+
+  def hours
+    return nil unless duration_secs
+    minutes / 60
+  end
+
+  def minutes
+    return nil unless duration_secs
+    duration_secs / 60
+  end
+
+  def seconds
+    return nil unless duration_secs
+    duration_secs
+  end
+
+  def start_at
+    return nil unless activity_at
+
+    if pin == PIN_START
+      activity_at
+    elsif pin == PIN_END && duration_secs
+      activity_at - duration_secs.seconds
+    else
+      nil
+    end
+  end
+
+  def end_at
+    return nil unless activity_at
+    if pin == PIN_END
+      activity_at
+    elsif pin == PIN_START && duration_secs
+      activity_at + duration_secs.seconds
+    else
+      nil
+    end
+  end
+
+  # Graph methods
 
   def all_next_activities
     next_activities.inject(Set.new) do |set, a|

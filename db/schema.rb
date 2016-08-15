@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160618135918) do
+ActiveRecord::Schema.define(version: 20160815111720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,10 +27,15 @@ ActiveRecord::Schema.define(version: 20160618135918) do
     t.integer  "child_count",                     default: 0,     null: false
     t.string   "status",               limit: 24, default: "new", null: false
     t.boolean  "completed",                       default: false, null: false
+    t.datetime "activity_at"
+    t.integer  "pin",                             default: 0,     null: false
+    t.integer  "duration_secs"
   end
 
+  add_index "activities", ["activity_at"], name: "index_activities_on_activity_at", using: :btree
   add_index "activities", ["child_count"], name: "index_activities_on_child_count", using: :btree
   add_index "activities", ["completed"], name: "index_activities_on_completed", using: :btree
+  add_index "activities", ["duration_secs"], name: "index_activities_on_duration_secs", using: :btree
   add_index "activities", ["next_links_count"], name: "index_activities_on_next_links_count", using: :btree
   add_index "activities", ["parent_id"], name: "index_activities_on_parent_id", using: :btree
   add_index "activities", ["previous_links_count"], name: "index_activities_on_previous_links_count", using: :btree
