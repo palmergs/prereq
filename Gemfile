@@ -13,7 +13,7 @@ gem 'bcrypt',             '~> 3.1.7'
 
 gem 'rack-cors',          require: 'rack/cors'
 gem 'ember-cli-rails',    '~> 0.7'
-gem 'active_model_serializers', '~> 0.10.1'
+gem 'active_model_serializers', '~> 0.10.2'
 gem 'kaminari',           '~> 0.17.0'
 
 group :development, :test do
