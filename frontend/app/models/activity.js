@@ -7,6 +7,9 @@ import EmberValidations from 'ember-validations';
 export default Model.extend(EmberValidations, {
   name: attr('string'),
   description: attr('string'),
+  activityAt: attr('date'),
+  durationSecs: attr('number'),
+  pin: attr('number'),
   status: attr('string'),
   completed: attr('boolean'),
   createdAt: attr('date'),
@@ -19,6 +22,9 @@ export default Model.extend(EmberValidations, {
 
   parent: belongsTo('activity', { inverse: 'children', async: true }),
   children: hasMany('activity', { inverse: 'parent', async: true }),
+
+  pinStart: Ember.computed.equal('pin', -1),
+  pinEnd: Ember.computed.equal('pin', 1),
 
   validations: {
     name: {

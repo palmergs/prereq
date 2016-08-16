@@ -50,11 +50,15 @@ class Api::V1::ActivitiesController < ApplicationController
       Activity.find(hash[:parent_id]) if hash[:parent_id]
     end
 
+    def params_list
+      [ :name, :description, :activity_at, :pin, :duration_secs, :parent_id ]
+    end
+
     def create_activity_params
-      ActiveModelSerializers::Deserialization.jsonapi_parse(params, onlu: [ :name, :description, :parent_id])
+      ActiveModelSerializers::Deserialization.jsonapi_parse(params, only_not_working: params_list)
     end
 
     def update_activity_params
-      ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [ :name, :description, :parent_id ])
+      ActiveModelSerializers::Deserialization.jsonapi_parse(params, only_not_working: params_list)
     end
 end
