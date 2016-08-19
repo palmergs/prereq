@@ -38,11 +38,11 @@ export default Ember.Component.extend({
           console.log("in errors...");
           console.log(errs);
           this.get('flashService').errorMessages(errs);
-        }).catch((validations) => {
-          console.log("in validations...");
-          console.log(validations);
-          this.get('flashService').warning("Unable to save activity.");
         });
+      }).catch((validations) => {
+        console.log("in validations...");
+        console.log(validations);
+        this.get('flashService').warning("Unable to save activity.");
       });
     }
   }

@@ -1,0 +1,16 @@
+{{#unless isEditing}}
+  <div class="activity-row-summary">{{activity-outliner.summary-text model=model action=(action 'setIsEditing')}}</div>
+{{else}}
+  {{#bs-form model=model action="submit" }}
+    {{bs-form-element controlType="text" placeholder="Title" property="title"}}
+    {{bs-form-element controlType="textarea" placeholder="Description" property="description"}}
+    {{bs-button defaultText="Save" type="primary" buttonType="submit"}}
+    <a {{action "cancel"}}>cancel</a>
+    {{#unless model.isNew}}
+      {{bs-button type="danger" icon="glyphicon glyphicon-trash" classNames="pull-right" action=(action 'delete') }}
+    {{/unless}}
+  {{/bs-form}}
+{{/unless}}
+{{#if model.children}}
+  {{activity-outliner.activity-list model=model.children}}
+{{/if}}
