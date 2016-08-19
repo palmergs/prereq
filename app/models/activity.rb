@@ -12,6 +12,7 @@ class Activity < ActiveRecord::Base
   PIN_START = -1
   PIN_UNDEFINED = 0
   PIN_END = 1
+  ALL_PINS = [ PIN_START, PIN_UNDEFINED, PIN_END ]
 
   has_many :previous_links,
       class_name: 'Link',
@@ -83,6 +84,7 @@ class Activity < ActiveRecord::Base
   before_save do
     self.description = "" if description.nil?
     self.status = WORKING unless ALL_STATUS.include?(status)
+    self.pin = PIN_UNDEFINED unless ALL_PINS.include?(pin)
   end
 
   before_destroy do
