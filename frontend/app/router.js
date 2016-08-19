@@ -24,6 +24,7 @@ Router.map(function() {
 
   this.route('styles', function() {
     this.route('forms');
+    this.route('outliner');
   });
 });
 
