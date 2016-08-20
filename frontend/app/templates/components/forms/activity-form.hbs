@@ -1,12 +1,14 @@
 {{#if model}}
   {{#bs-form model=model action="submit"}}
-    <label>Parent Activity</label>
-    {{#power-select
-        selected=model.parent
-        search=(action "lookupActivities")
-        onchange=(action "setParentActivity") as |activity|}}
-      {{activity.name}}
-    {{/power-select}}
+    {{#if allowParent}}
+      <label>Parent Activity</label>
+      {{#power-select
+          selected=model.parent
+          search=(action "lookupActivities")
+          onchange=(action "setParentActivity") as |activity|}}
+        {{activity.name}}
+      {{/power-select}}
+    {{/if}}
     {{bs-form-element controlType="text" label="Name" placeholder="Name" property="name"}}
     {{bs-form-element controlType="text" label="Activity Date" placeholder="Date / Time" property="activityAt"}}
     {{bs-form-element controlType="textarea" label="Description" placeholder="Description" property="description"}}
@@ -19,4 +21,3 @@
 {{else}}
   <p class="text-warning">No activity model found.</p>
 {{/if}}
-{{yield}}

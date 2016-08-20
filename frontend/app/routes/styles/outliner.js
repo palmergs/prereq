@@ -2,6 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
-    return this.store.createRecord('activity', { title: 'A New Activity'});
+    return this.store.createRecord('activity', { name: 'A New Activity'});
   }
 });

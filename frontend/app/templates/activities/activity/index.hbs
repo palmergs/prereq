@@ -1,1 +1,23 @@
-{{forms/activity-form model=model saved=(action "saved") canceled=(action "canceled") delete=(action "delete") }}
+{{forms/activity-form model=model allowParent=true
+    saved=(action "saved")
+    canceled=(action "canceled")
+    delete=(action "delete") }}
+{{#if model.locations}}
+  {{#leaflet-map lat=model.centerLat lng=model.centerLng zoom=model.zoomLevel}}
+    {{!-- Specify child layer components here --}}
+    {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+
+    {{#each model.locations as |location|}}
+      {{#marker-layer location=location.location}}
+        {{#if location.title}}
+          <h4>{{ location.title }}</h4>
+        {{/if}}
+        {{#if location.text}}
+          {{ location.text }}
+        {{else}}
+          [{{ location.location }}]
+        {{/if}}
+      {{/marker-layer}}
+    {{/each}}
+  {{/leaflet-map}}
+{{/if}}
