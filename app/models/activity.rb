@@ -65,6 +65,8 @@ class Activity < ActiveRecord::Base
     end
   }
 
+  scope :by_root, -> { where(parent_id: nil) }
+
   scope :by_search, ->(q) {
     if q.present?
       where('activities.name ilike ?', "%#{ sanitize_for_like(q) }%")
@@ -136,6 +138,15 @@ class Activity < ActiveRecord::Base
   end
 
   # Graph methods
+
+  def root?
+    self.parent_id.nil?
+  end
+
+  def root
+    return self if root?
+    return self.parent.root
+  end
 
   def all_next_activities
     next_activities.inject(Set.new) do |set, a|
