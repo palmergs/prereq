@@ -1,0 +1,11 @@
+{{#each buttons as |button|}}
+  <label class="btn btn-default {{if (eq button.value current) 'active' 'not-active'}}">
+    <input type="radio"
+        name="options"
+        autocomplete="off"
+        checked={{eq button.value current}}
+        {{action 'clicked' button.value}} />
+    {{#if button.icon}}{{glyph-icon icon=button.icon}}{{/if}}
+    {{#if button.name}}{{ button.name }}{{/if}}
+  </label>
+{{/each}}
