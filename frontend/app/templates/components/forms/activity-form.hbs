@@ -1,7 +1,7 @@
-<div class="row">
-  {{#if model}}
-    {{#bs-form model=model action="submit"}}
-      {{#if allowParent}}
+{{#if model}}
+  {{#bs-form model=model action="submit"}}
+    {{#if allowParent}}
+      <div class="row">
         <div class="col-sm-12">
           <label>Parent Activity</label>
           {{#power-select
@@ -11,16 +11,30 @@
             {{activity.name}}
           {{/power-select}}
         </div>
-      {{/if}}
+      </div>
+    {{/if}}
+    <div class="row">
       <div class="col-sm-12">
         {{bs-form-element controlType="text" label="Name" placeholder="Name" property="name"}}
       </div>
+    </div>
+    <div class="row">
       <div class="col-sm-6">
-        {{bs-form-element controlType="text" label="Activity Date" placeholder="Date / Time" property="activityAt"}}
+        <label>Pin Date</label><br/>
+        {{forms/button-group buttons=pinButtons selected=(action 'setPin')}}
       </div>
+      <div class="col-sm-6">
+        {{#unless model.pinUndefined}}
+          {{bs-form-element controlType="text" label="Activity Date" placeholder="Date / Time" property="activityAt"}}
+        {{/unless}}
+      </div>
+    </div>
+    <div class="row">
       <div class="col-sm-12">
         {{bs-form-element controlType="textarea" label="Description" placeholder="Description" property="description"}}
       </div>
+    </div>
+    <div class="row">
       <div class="col-sm-12">
         {{bs-button defaultText="Submit" type="primary" buttonType="submit"}}
         <a {{action "cancel" model}}>cancel</a>
@@ -28,10 +42,12 @@
           {{bs-button type="danger" icon="glyphicon glyphicon-trash" classNames="pull-right" action=(action 'delete' model) }}
         {{/unless}}
       </div>
-    {{/bs-form}}
-  {{else}}
+    </div>
+  {{/bs-form}}
+{{else}}
+  <div class="row">
     <div class="col-sm-12">
       <p class="text-warning">No activity model found.</p>
     </div>
-  {{/if}}
-</div>
+  </div>
+{{/if}}

@@ -10,6 +10,11 @@ export default Ember.Component.extend({
 
   errors: null,
 
+  pinButtons: [
+    { name: 'Start At', value: -1, icon: 'step-backward' },
+    { name: 'End At', value: 1, icon: 'step-forward' }
+  ],
+
   actions: {
     lookupActivities(query) {
       return this.get('activitiesStore').search(query, this.get('model'));
@@ -17,6 +22,12 @@ export default Ember.Component.extend({
 
     setParentActivity(activity) {
       this.set('model.parent', activity);
+    },
+
+    setPin(pin) {
+      console.log("Setting pin", pin, +pin, parseInt(pin), this.get('model.pinUndefined'));
+      pin ? this.set('model.pin', parseInt(pin)) : this.set('model.pin', 0);
+      console.log("After set", this.get('model.pin'), this.get('model.pinStart'), this.get('model.pinUndefined'))
     },
 
     cancel(activity) {

@@ -9,7 +9,7 @@ export default Model.extend(EmberValidations, {
   description: attr('string'),
   activityAt: attr('date'),
   durationSecs: attr('number'),
-  pin: attr('number'),
+  pin: attr('number', { default: 0 }),
   status: attr('string'),
   completed: attr('boolean'),
   createdAt: attr('date'),
@@ -24,6 +24,10 @@ export default Model.extend(EmberValidations, {
   children: hasMany('activity', { inverse: 'parent', async: true }),
 
   pinStart: Ember.computed.equal('pin', -1),
+  pinUndefined: Ember.computed('pin', function() {
+    const pin = this.get('pin');
+    return !pin || +pin === 0;
+  }),
   pinEnd: Ember.computed.equal('pin', 1),
 
   validations: {
