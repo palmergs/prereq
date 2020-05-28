@@ -14,7 +14,7 @@ gem 'bcrypt',             '~> 3.1.7'
 gem 'rack-cors',          require: 'rack/cors'
 gem 'ember-cli-rails',    '~> 0.7'
 gem 'active_model_serializers', '~> 0.10.2'
-gem 'kaminari',           '~> 0.17.0'
+gem 'kaminari',           '~> 1.2.1'
 
 group :development, :test do
   gem 'pry-rails'
